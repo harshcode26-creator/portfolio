@@ -23,7 +23,7 @@ export default function Contact() {
           <Magnet>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
-              className="inline-flex items-center gap-3 bg-fg text-ink font-medium rounded-full pl-7 pr-6 py-4 text-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-3 bg-fg text-ink font-medium rounded-full pl-7 pr-6 py-4 text-lg hover:shadow-[0_0_0_3px_var(--color-signal)] focus-visible:outline-2 focus-visible:outline-[var(--color-signal)] focus-visible:outline-offset-2 transition-all"
             >
               <Mail size={20} />
               {CONTACT_EMAIL}
@@ -33,10 +33,16 @@ export default function Contact() {
         </FadeIn>
 
         <FadeIn delay={0.2} className="mt-12 flex items-center justify-center gap-6 font-mono text-sm text-muted">
-          <a href={GITHUB_URL} className="inline-flex items-center gap-2 hover:text-fg transition-colors">
+          <a
+            href={GITHUB_URL}
+            className="inline-flex items-center gap-2 hover:text-fg focus-visible:outline-2 focus-visible:outline-[var(--color-signal)] focus-visible:outline-offset-2 rounded p-1 transition-colors"
+          >
             <Link2 size={16} /> GitHub
           </a>
-          <a href={LINKEDIN_URL} className="inline-flex items-center gap-2 hover:text-fg transition-colors">
+          <a
+            href={LINKEDIN_URL}
+            className="inline-flex items-center gap-2 hover:text-fg focus-visible:outline-2 focus-visible:outline-[var(--color-signal)] focus-visible:outline-offset-2 rounded p-1 transition-colors"
+          >
             <Link2 size={16} /> LinkedIn
           </a>
         </FadeIn>
@@ -48,3 +54,4 @@ export default function Contact() {
     </section>
   )
 }
+

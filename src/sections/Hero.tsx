@@ -23,11 +23,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display text-5xl sm:text-6xl lg:text-7xl font-medium leading-[1.05] tracking-tight"
+            className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight"
           >
             Harsh Prajapati.
             <br />
-            <span className="gradient-text">Full-stack developer.</span>
+            <span className="signal-text">Full-stack developer.</span>
           </motion.h1>
 
           <motion.p
@@ -49,7 +49,7 @@ export default function Hero() {
             <Magnet>
               <a
                 href="#work"
-                className="inline-flex items-center gap-2 bg-fg text-ink font-medium rounded-full pl-6 pr-5 py-3 hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 bg-fg text-ink font-medium rounded-full pl-6 pr-5 py-3 hover:shadow-[0_0_0_3px_var(--color-signal)] focus-visible:outline-2 focus-visible:outline-[var(--color-signal)] focus-visible:outline-offset-2 transition-all"
               >
                 See my work
                 <ArrowUpRight size={18} />
@@ -57,7 +57,7 @@ export default function Hero() {
             </Magnet>
             <a
               href="#contact"
-              className="font-mono text-xs uppercase tracking-widest text-muted hover:text-fg transition-colors"
+              className="font-mono text-xs uppercase tracking-widest text-muted hover:text-fg focus-visible:outline-2 focus-visible:outline-[var(--color-signal)] focus-visible:outline-offset-2 rounded p-1 transition-all"
             >
               Get in touch
             </a>
@@ -71,21 +71,31 @@ export default function Hero() {
           className="rounded-2xl border border-line bg-paper overflow-hidden shadow-2xl shadow-black/40"
         >
           <div className="flex items-center gap-1.5 px-4 py-3 border-b border-line bg-paper-hi">
-            <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
-            <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
-            <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+            <span className="w-2.5 h-2.5 rounded-full bg-muted/40" />
+            <span className="w-2.5 h-2.5 rounded-full bg-muted/40" />
+            <span className="w-2.5 h-2.5 rounded-full bg-muted/40" />
             <span className="ml-3 font-mono text-[11px] text-muted">profile.json</span>
           </div>
-          <pre className="font-mono text-[13px] leading-relaxed p-5 overflow-x-auto text-muted">
-{`{
-  "name": "Harsh Prajapati",
-  "role": "Full-Stack Developer",
-  "stack": "MERN",
-  "base": "Ahmedabad, IN",
-  "experience": "TodoIT Services",
-  "shipped": [`}<span className="text-signal">"Optivis"</span>{`, `}<span className="text-signal-2">"Finnova"</span>{`],
-  "status": `}<span className="text-fg">"open_to_work"</span>{`
-}`}
+          <pre className="font-mono text-[13px] leading-relaxed p-5 overflow-x-auto text-fg/80">
+            <span className="text-fg/50">{'{'}</span>
+            {'\n'}
+            <span className="text-muted">  "name"</span>: <span className="text-[var(--color-signal)]">"Harsh Prajapati"</span>,
+            {'\n'}
+            <span className="text-muted">  "role"</span>: <span className="text-[var(--color-signal)]">"Full-Stack Developer"</span>,
+            {'\n'}
+            <span className="text-muted">  "stack"</span>: <span className="text-[var(--color-signal)]">"MERN"</span>,
+            {'\n'}
+            <span className="text-muted">  "base"</span>: <span className="text-[var(--color-signal)]">"Ahmedabad, IN"</span>,
+            {'\n'}
+            <span className="text-muted">  "experience"</span>: <span className="text-[var(--color-signal)]">"TodoIT Services"</span>,
+            {'\n'}
+            <span className="text-muted">  "shipped"</span>: <span className="text-fg/50">[</span>
+            <span className="text-[var(--color-signal)]">"Optivis"</span>, <span className="text-[var(--color-signal)]">"Finnova"</span>
+            <span className="text-fg/50">]</span>,
+            {'\n'}
+            <span className="text-muted">  "status"</span>: <span className="text-[var(--color-signal-2)]">"open_to_work"</span>
+            {'\n'}
+            <span className="text-fg/50">{'}'}</span>
           </pre>
         </motion.div>
       </div>

@@ -33,27 +33,45 @@ export default function StackCard({ project, index, total }: StackCardProps) {
     <div ref={ref} className="sticky top-24 h-screen flex items-center justify-center px-6 md:px-8">
       <motion.div
         style={{ scale, top: `${index * 16}px` }}
-        className="relative w-full max-w-5xl rounded-3xl border border-line bg-paper p-8 md:p-12 shadow-2xl shadow-black/50"
+        className={`relative w-full max-w-5xl rounded-3xl border border-line bg-paper p-8 md:p-12 shadow-2xl shadow-black/50 transition-colors duration-300 ${
+          project.accent === 'signal'
+            ? 'hover:border-[var(--color-signal)]/40'
+            : 'hover:border-[var(--color-signal-2)]/40'
+        }`}
       >
         <div className={`grid gap-10 ${hasMedia ? 'md:grid-cols-2 md:items-center' : ''}`}>
           <div>
-            <span className="font-mono text-sm" style={{ color: accent }}>
-              {project.index}
-            </span>
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-sm" style={{ color: accent }}>
+                {project.index}
+              </span>
+              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-[var(--color-signal-2)] bg-[var(--color-signal-2)]/10 text-[var(--color-signal-2)] font-mono text-[10px] uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-signal-2)] animate-pulse" />
+                shipped
+              </div>
+            </div>
             <h3 className="font-display text-3xl md:text-5xl font-medium mt-3">{project.title}</h3>
             <p className="text-muted font-mono text-sm mt-2">{project.role}</p>
 
             <p className="text-fg/90 mt-6 leading-relaxed">{project.description}</p>
 
             <div className="mt-6 flex flex-wrap gap-2">
-              {project.stack.map((s) => (
-                <span
-                  key={s}
-                  className="font-mono text-xs text-muted border border-line rounded-full px-3 py-1.5"
-                >
-                  {s}
-                </span>
-              ))}
+              {project.stack.map((s, idx) => {
+                let borderClass = 'border-line text-muted'
+                if (idx % 4 === 3) {
+                  borderClass = 'border-[var(--color-signal-2)] text-[var(--color-signal-2)]'
+                } else if (idx % 4 === 1) {
+                  borderClass = 'border-[var(--color-signal)] text-[var(--color-signal)]'
+                }
+                return (
+                  <span
+                    key={s}
+                    className={`font-mono text-xs border rounded-full px-3 py-1.5 transition-colors ${borderClass}`}
+                  >
+                    {s}
+                  </span>
+                )
+              })}
             </div>
           </div>
 
@@ -61,9 +79,9 @@ export default function StackCard({ project, index, total }: StackCardProps) {
             <div>
               <div className="rounded-2xl border border-line bg-ink overflow-hidden">
                 <div className="flex items-center gap-1.5 px-3.5 py-2.5 border-b border-line bg-paper-hi">
-                  <span className="w-2 h-2 rounded-full bg-white/15" />
-                  <span className="w-2 h-2 rounded-full bg-white/15" />
-                  <span className="w-2 h-2 rounded-full bg-white/15" />
+                  <span className="w-2 h-2 rounded-full bg-muted/40" />
+                  <span className="w-2 h-2 rounded-full bg-muted/40" />
+                  <span className="w-2 h-2 rounded-full bg-muted/40" />
                 </div>
 
                 <div className="aspect-video relative bg-paper-hi">
@@ -106,7 +124,7 @@ export default function StackCard({ project, index, total }: StackCardProps) {
                       key={m.src}
                       onClick={() => setActive(i)}
                       aria-label={`Show ${m.alt}`}
-                      className="h-1.5 rounded-full transition-all"
+                      className="h-1.5 rounded-full cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--color-signal)] focus-visible:outline-offset-2 transition-all"
                       style={{
                         width: i === active ? '28px' : '14px',
                         backgroundColor: i === active ? accent : 'var(--color-line)',
