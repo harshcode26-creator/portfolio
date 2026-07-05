@@ -18,7 +18,7 @@ export default function Services() {
               as="div"
               key={s.id}
               delay={i * 0.06}
-              className="bg-paper border border-line rounded-2xl p-8 md:p-10 transition-all duration-300 hover:border-[var(--color-signal)]/40 hover:bg-paper-hi"
+              className="bg-paper border border-line rounded-2xl p-8 md:p-10 transition-all duration-300 hover:border-signal/40 hover:bg-paper-hi"
             >
               <span className="font-mono text-xs text-muted">0{i + 1}</span>
               <h3 className="font-display text-xl md:text-2xl mt-4">{s.title}</h3>

@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
-import { Sun, Moon } from 'lucide-react'
-import { useTheme } from '../hooks/useTheme'
 
 const LINKS = [
   { label: 'About', href: '#about' },
@@ -12,7 +10,6 @@ const LINKS = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
-  const { theme, toggle } = useTheme()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -49,17 +46,9 @@ export default function Navbar() {
           ))}
         </ul>
         <div className="flex items-center gap-3">
-          <button
-            onClick={toggle}
-            aria-label="Toggle theme"
-            aria-pressed={theme === 'light'}
-            className="p-2 rounded-full border border-line text-muted hover:text-fg hover:border-signal focus-visible:outline-2 focus-visible:outline-[var(--color-signal)] focus-visible:outline-offset-2 transition-all cursor-pointer flex items-center justify-center"
-          >
-            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
           <a
             href="#contact"
-            className="font-mono text-xs uppercase tracking-widest border border-line rounded-full px-4 py-2 hover:border-signal hover:text-fg hover:shadow-[0_0_0_3px_var(--color-signal)] focus-visible:outline-2 focus-visible:outline-[var(--color-signal)] focus-visible:outline-offset-2 transition-all text-muted"
+            className="font-mono text-xs uppercase tracking-widest bg-signal text-ink rounded-full px-4 py-2 hover:bg-signal-2 focus-visible:outline-2 focus-visible:outline-[var(--color-signal)] focus-visible:outline-offset-2 transition-all font-medium"
           >
             Let's talk
           </a>

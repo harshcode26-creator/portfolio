@@ -5,7 +5,7 @@ import { projects } from '../data/projects'
 export default function Projects() {
   return (
     <section id="work" className="py-28 md:py-36">
-      <div className="max-w-6xl mx-auto px-6 md:px-8 mb-16">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 mb-16">
         <FadeIn as="p" className="font-mono text-xs uppercase tracking-widest text-signal mb-6">
           // 03 — Selected work
         </FadeIn>

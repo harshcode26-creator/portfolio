@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
-import { ImageOff } from 'lucide-react'
+import { ImageOff, ExternalLink } from 'lucide-react'
+import { SiGithub } from 'react-icons/si'
 import type { Project } from '../data/projects'
 
 interface StackCardProps {
@@ -11,8 +12,11 @@ interface StackCardProps {
 
 export default function StackCard({ project, index, total }: StackCardProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const [active, setActive] = useState(0)
-  const [failed, setFailed] = useState<Record<number, boolean>>({})
+  const videoRef = useRef<HTMLVideoElement>(null)
+  
+  const [videoFailed, setVideoFailed] = useState(false)
+  const [imageFailed, setImageFailed] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -25,43 +29,83 @@ export default function StackCard({ project, index, total }: StackCardProps) {
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale])
 
   const accent = project.accent === 'signal' ? 'var(--color-signal)' : 'var(--color-signal-2)'
-  const media = project.media ?? []
-  const activeMedia = media[active]
-  const hasMedia = media.length > 0
+  const hasVideo = !!project.videoSrc && !videoFailed
+  const liveUrl = project.liveUrl
+
+  const handleMouseEnter = () => {
+    if (!videoRef.current || videoFailed || !project.videoSrc) return
+    videoRef.current.play().then(() => {
+      setIsPlaying(true)
+    }).catch((err) => {
+      console.warn("Video play failed:", err)
+    })
+  }
+
+  const handleMouseLeave = () => {
+    if (!videoRef.current || videoFailed || !project.videoSrc) return
+    videoRef.current.pause()
+    videoRef.current.currentTime = 0
+    setIsPlaying(false)
+  }
+
+  const handleTogglePlay = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (!videoRef.current || videoFailed || !project.videoSrc) return
+    if (videoRef.current.paused) {
+      videoRef.current.play().then(() => {
+        setIsPlaying(true)
+      }).catch((err) => {
+        console.warn("Video play failed:", err)
+      })
+    } else {
+      videoRef.current.pause()
+      videoRef.current.currentTime = 0
+      setIsPlaying(false)
+    }
+  }
+
+  // Fallback image source: first try posterImage, then first item in media array
+  const fallbackImgSrc = project.posterImage || (project.media && project.media[0]?.src)
+  const fallbackImgAlt = project.title + " fallback"
 
   return (
     <div ref={ref} className="sticky top-24 h-screen flex items-center justify-center px-6 md:px-8">
       <motion.div
         style={{ scale, top: `${index * 16}px` }}
-        className={`relative w-full max-w-5xl rounded-3xl border border-line bg-paper p-8 md:p-12 shadow-2xl shadow-black/50 transition-colors duration-300 ${
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleTogglePlay}
+        className={`relative w-full max-w-6xl rounded-3xl border border-line bg-paper p-10 md:p-16 shadow-2xl shadow-black/50 transition-colors duration-300 cursor-pointer select-none ${
           project.accent === 'signal'
-            ? 'hover:border-[var(--color-signal)]/40'
-            : 'hover:border-[var(--color-signal-2)]/40'
+            ? 'hover:border-signal/40'
+            : 'hover:border-signal-2/40'
         }`}
       >
-        <div className={`grid gap-10 ${hasMedia ? 'md:grid-cols-2 md:items-center' : ''}`}>
+        <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <div>
             <div className="flex items-center gap-3">
               <span className="font-mono text-sm" style={{ color: accent }}>
                 {project.index}
               </span>
-              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-[var(--color-signal-2)] bg-[var(--color-signal-2)]/10 text-[var(--color-signal-2)] font-mono text-[10px] uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-signal-2)] animate-pulse" />
+              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-signal-2 bg-signal-2/10 text-signal-2 font-mono text-[10px] uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-signal-2 animate-pulse" />
                 shipped
               </div>
             </div>
-            <h3 className="font-display text-3xl md:text-5xl font-medium mt-3">{project.title}</h3>
+            <h3 className="font-display text-4xl md:text-6xl font-medium mt-3">{project.title}</h3>
             <p className="text-muted font-mono text-sm mt-2">{project.role}</p>
 
             <p className="text-fg/90 mt-6 leading-relaxed">{project.description}</p>
 
+            {/* Tech Stack Pills */}
             <div className="mt-6 flex flex-wrap gap-2">
               {project.stack.map((s, idx) => {
                 let borderClass = 'border-line text-muted'
-                if (idx % 4 === 3) {
-                  borderClass = 'border-[var(--color-signal-2)] text-[var(--color-signal-2)]'
-                } else if (idx % 4 === 1) {
-                  borderClass = 'border-[var(--color-signal)] text-[var(--color-signal)]'
+                if (idx % 3 === 1) {
+                  const isEvenColor = Math.floor(idx / 3) % 2 === 0
+                  borderClass = isEvenColor 
+                    ? 'border-signal text-signal' 
+                    : 'border-signal-2 text-signal-2'
                 }
                 return (
                   <span
@@ -73,68 +117,113 @@ export default function StackCard({ project, index, total }: StackCardProps) {
                 )
               })}
             </div>
-          </div>
 
-          {hasMedia && (
-            <div>
-              <div className="rounded-2xl border border-line bg-ink overflow-hidden">
-                <div className="flex items-center gap-1.5 px-3.5 py-2.5 border-b border-line bg-paper-hi">
-                  <span className="w-2 h-2 rounded-full bg-muted/40" />
-                  <span className="w-2 h-2 rounded-full bg-muted/40" />
-                  <span className="w-2 h-2 rounded-full bg-muted/40" />
-                </div>
+            {/* Project Links (GitHub and Live Demo) */}
+            <div className="mt-8 flex flex-wrap gap-3" onClick={(e) => e.stopPropagation()}>
+              {/* GitHub Chip */}
+              {project.githubUrl ? (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-4 py-2 font-mono text-xs text-muted hover:text-fg hover:border-fg transition-colors"
+                >
+                  <SiGithub size={14} />
+                  GitHub
+                </a>
+              ) : (
+                <span
+                  className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper/20 px-4 py-2 font-mono text-xs text-muted/40 cursor-not-allowed select-none"
+                  title="Repository is private"
+                >
+                  <SiGithub size={14} className="opacity-40" />
+                  Private Repo
+                </span>
+              )}
 
-                <div className="aspect-video relative bg-paper-hi">
-                  {activeMedia && !failed[active] ? (
-                    activeMedia.type === 'video' ? (
-                      <video
-                        key={activeMedia.src}
-                        src={activeMedia.src}
-                        className="w-full h-full object-cover"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        onError={() => setFailed((f) => ({ ...f, [active]: true }))}
-                      />
-                    ) : (
-                      <img
-                        key={activeMedia.src}
-                        src={activeMedia.src}
-                        alt={activeMedia.alt}
-                        className="w-full h-full object-cover"
-                        onError={() => setFailed((f) => ({ ...f, [active]: true }))}
-                      />
-                    )
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-muted px-6 text-center">
-                      <ImageOff size={22} />
-                      <span className="font-mono text-[11px] break-all">
-                        {activeMedia ? activeMedia.src : 'No media added yet'}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {media.length > 1 && (
-                <div className="mt-3 flex gap-2">
-                  {media.map((m, i) => (
-                    <button
-                      key={m.src}
-                      onClick={() => setActive(i)}
-                      aria-label={`Show ${m.alt}`}
-                      className="h-1.5 rounded-full cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--color-signal)] focus-visible:outline-offset-2 transition-all"
-                      style={{
-                        width: i === active ? '28px' : '14px',
-                        backgroundColor: i === active ? accent : 'var(--color-line)',
-                      }}
-                    />
-                  ))}
-                </div>
+              {/* Live Demo Chip(s) */}
+              {liveUrl ? (
+                Array.isArray(liveUrl) ? (
+                  liveUrl.map((url, urlIdx) => (
+                    <a
+                      key={url}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-signal px-4 py-2 font-mono text-xs text-ink font-medium hover:bg-signal-2 transition-colors"
+                    >
+                      <ExternalLink size={14} />
+                      Live Demo {liveUrl.length > 1 ? urlIdx + 1 : ''}
+                    </a>
+                  ))
+                ) : (
+                  <a
+                    href={liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-signal px-4 py-2 font-mono text-xs text-ink font-medium hover:bg-signal-2 transition-colors"
+                  >
+                    <ExternalLink size={14} />
+                    Live Demo
+                  </a>
+                )
+              ) : (
+                <span
+                  className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper/20 px-4 py-2 font-mono text-xs text-muted/30 cursor-not-allowed select-none"
+                >
+                  <ExternalLink size={14} className="opacity-30" />
+                  Coming soon
+                </span>
               )}
             </div>
-          )}
+          </div>
+
+          {/* Media Window Chrome Frame */}
+          <div>
+            <div className="rounded-2xl border border-line bg-ink overflow-hidden">
+              <div className="flex items-center gap-1.5 px-3.5 py-2.5 border-b border-line bg-paper-hi">
+                <span className="w-2 h-2 rounded-full bg-muted/40" />
+                <span className="w-2 h-2 rounded-full bg-muted/40" />
+                <span className="w-2 h-2 rounded-full bg-muted/40" />
+              </div>
+
+              <div className="aspect-video relative bg-paper-hi flex items-center justify-center overflow-hidden">
+                {hasVideo ? (
+                  <>
+                    <video
+                      ref={videoRef}
+                      src={project.videoSrc}
+                      poster={project.posterImage}
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover"
+                      onError={() => setVideoFailed(true)}
+                    />
+                    {/* Subtle Live/Preview indicator badge */}
+                    <div className="absolute top-3 right-3 z-10 bg-black/65 backdrop-blur-xs text-white/90 font-mono text-[9px] px-2 py-0.5 rounded-sm flex items-center gap-1.5 pointer-events-none select-none uppercase tracking-wider">
+                      <span className={`w-1.5 h-1.5 rounded-full ${isPlaying ? 'bg-signal animate-pulse' : 'bg-muted'}`} />
+                      {isPlaying ? 'Live Demo' : 'Preview'}
+                    </div>
+                  </>
+                ) : fallbackImgSrc && !imageFailed ? (
+                  <img
+                    src={fallbackImgSrc}
+                    alt={fallbackImgAlt}
+                    className="w-full h-full object-cover"
+                    onError={() => setImageFailed(true)}
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-muted px-6 text-center">
+                    <ImageOff size={22} />
+                    <span className="font-mono text-[11px] break-all">
+                      {project.videoSrc || 'No preview available'}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </motion.div>
     </div>

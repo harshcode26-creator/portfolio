@@ -6,28 +6,17 @@
   --font-body: "Inter", ui-sans-serif, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  /* default = dark, overridden by [data-theme="light"] below */
-  --color-ink: #0B0D0C;
-  --color-paper: #131615;
-  --color-paper-hi: #1B201E;
-  --color-fg: #ECEEEA;
-  --color-muted: #8B9289;
-  --color-line: #262B28;
-  --color-signal: #2FE8B8;
-  --color-signal-2: #FFB347;
-  --color-danger: #FF6B5E;
-}
+  --color-ink: #FFFFFF;        /* page background */
+  --color-paper: #F6F6F4;      /* card / panel background */
+  --color-paper-hi: #EFEFEC;   /* hover / elevated surface */
+  --color-fg: #111111;         /* primary text */
+  --color-muted: #6B6B68;      /* secondary text, captions */
+  --color-line: #E3E3DF;       /* borders, dividers */
 
-[data-theme="light"] {
-  --color-ink: #F5F6F2;
-  --color-paper: #EAEBE5;
-  --color-paper-hi: #E0E2DA;
-  --color-fg: #131613;
-  --color-muted: #585F56;
-  --color-line: #D5D7CE;
-  --color-signal: #0B7A63;
-  --color-signal-2: #A85D08;
-  --color-danger: #C4392E;
+  --color-signal: #E5231B;     /* primary accent — red */
+  --color-signal-2: #1B2A4A;   /* secondary accent — navy */
+
+  --color-hero-red: #FF1E1E;   /* full-vivid red */
 }
 
 html {
@@ -44,7 +33,12 @@ body {
 
 ::selection {
   background: var(--color-signal);
-  color: var(--color-ink);
+  color: #FFFFFF;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 2px;
 }
 
 .font-display { font-family: var(--font-display); }
@@ -60,6 +54,46 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+.marquee-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  animation: marquee-scroll 30s linear infinite;
+  animation-play-state: running;
+}
+
+.marquee-viewport:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
   }
 }
 

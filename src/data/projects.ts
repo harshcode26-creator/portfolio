@@ -11,9 +11,12 @@ export interface Project {
   role: string
   description: string
   stack: string[]
-  link?: string
   accent: 'signal' | 'signal-2'
   media?: ProjectMedia[]
+  githubUrl: string | null
+  liveUrl: string | string[] | null
+  videoSrc?: string
+  posterImage?: string
 }
 
 export const projects: Project[] = [
@@ -28,9 +31,11 @@ export const projects: Project[] = [
     accent: 'signal',
     media: [
       { type: 'image', src: '/projects/optivis/dashboard.png', alt: 'Optivis dashboard view' },
-      { type: 'image', src: '/projects/optivis/insights.png', alt: 'Optivis insights view' },
-      { type: 'video', src: '/projects/optivis/demo.mp4', alt: 'Optivis product walkthrough' },
     ],
+    videoSrc: '/projects/optivis/optivis.mp4',
+    posterImage: '/projects/optivis/dashboard.png',
+    githubUrl: 'https://github.com/harshcode26-creator/optivis.git',
+    liveUrl: 'http://optivis-delta.vercel.app/',
   },
   {
     id: 'finnova',
@@ -42,9 +47,12 @@ export const projects: Project[] = [
     stack: ['React', 'Node.js', 'Express', 'MongoDB'],
     accent: 'signal-2',
     media: [
-      { type: 'image', src: '/projects/finnova/upload.png', alt: 'Finnova statement upload screen' },
-      { type: 'image', src: '/projects/finnova/analysis.png', alt: 'Finnova analysis output' },
+      { type: 'video', src: '/projects/finnova/finnova.mp4', alt: 'Finnova product demo' },
     ],
+    videoSrc: '/projects/finnova/finnova.mp4',
+    posterImage: '/projects/finnova/upload.png',
+    githubUrl: 'https://github.com/harshcode26-creator/bank_statement_anaylser.git',
+    liveUrl: 'https://finnova-livid.vercel.app/',
   },
   {
     id: 'einvite-audit',
@@ -52,12 +60,19 @@ export const projects: Project[] = [
     title: 'EInvite Audit & Redesign',
     role: 'Independent Product Audit — TodoIT Services',
     description:
-      'Self-initiated audit of a live product: found broken CTAs, unresolved template variables, duplicate analytics tags, and missing security headers. Followed it with live redesign prototypes of two pages and a full PageSpeed report, packaged into a pitch deck for the company\u2019s CEO.',
+      'Self-initiated audit of a live product: found broken CTAs, unresolved template variables, duplicate analytics tags, and missing security headers. Followed it with live redesign prototypes of two pages and a full PageSpeed report, packaged into a pitch deck for the company’s CEO.',
     stack: ['React', 'Performance Audit', 'UI Redesign'],
     accent: 'signal',
     media: [
       { type: 'image', src: '/projects/einvite/before-after-pricing.png', alt: 'EInvite pricing page before and after redesign' },
       { type: 'image', src: '/projects/einvite/before-after-articles.png', alt: 'EInvite articles page before and after redesign' },
+    ],
+    videoSrc: '/projects/einvite/einvite.mp4',
+    posterImage: '/projects/einvite/before-after-pricing.png',
+    githubUrl: null,
+    liveUrl: [
+      'https://einvite-pricing-625378471000.asia-southeast1.run.app/',
+      'https://einvite-articles-resources-625378471000.asia-southeast1.run.app/',
     ],
   },
 ]

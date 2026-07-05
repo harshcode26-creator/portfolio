@@ -21,7 +21,7 @@ const TIMELINE = [
 
 export default function About() {
   return (
-    <section id="about" className="px-6 md:px-8 py-28 md:py-36">
+    <section id="about" className="px-6 md:px-8 pt-14 md:pt-20 pb-28 md:pb-36">
       <div className="max-w-6xl mx-auto">
         <FadeIn as="p" className="font-mono text-xs uppercase tracking-widest text-signal mb-6">
           // 01 — About
