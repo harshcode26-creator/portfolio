@@ -10,12 +10,12 @@ const TIMELINE = [
   {
     year: '2025',
     title: 'Team Lead Intern, TodoIT Services',
-    detail: '3-month internship leading a team as a high performer, shipping real product work.',
+    detail: '3 months leading a team as a high performer, shipping real product work',
   },
   {
     year: '2025–2026',
-    title: 'Optivis & Finnova',
-    detail: 'Designed, built, and deployed two full MERN products from the ground up.',
+    title: 'Optivis & Finnova (SaaS products)',
+    detail: 'Designed, built, and deployed two full MERN SaaS products from the ground up.',
   },
 ]
 
