@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
-import { ImageOff, ExternalLink } from 'lucide-react'
+import { ImageOff, ExternalLink, ChevronLeft, ChevronRight, FileText } from 'lucide-react'
 import { SiGithub } from 'react-icons/si'
 import type { Project } from '../data/projects'
 
@@ -9,6 +9,60 @@ interface StackCardProps {
   index: number
   total: number
 }
+
+function SlideCarousel({ images, alt }: { images: string[]; alt: string }) {
+  const [index, setIndex] = useState(0)
+
+  return (
+    <div className="relative w-full h-full">
+      <img
+        src={images[index]}
+        alt={`${alt} — slide ${index + 1} of ${images.length}`}
+        className="w-full h-full object-contain bg-paper"
+      />
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            aria-label={`Show slide ${i + 1}`}
+            onClick={(e) => {
+              e.stopPropagation()
+              setIndex(i)
+            }}
+            className={`w-1.5 h-1.5 rounded-full transition-colors ${
+              i === index ? 'bg-signal' : 'bg-line'
+            }`}
+          />
+        ))}
+      </div>
+      {images.length > 1 && (
+        <>
+          <button
+            aria-label="Previous slide"
+            onClick={(e) => {
+              e.stopPropagation()
+              setIndex((i) => (i - 1 + images.length) % images.length)
+            }}
+            className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/85 hover:bg-white flex items-center justify-center text-neutral-900 shadow-md transition-all z-20"
+          >
+            <ChevronLeft size={16} />
+          </button>
+          <button
+            aria-label="Next slide"
+            onClick={(e) => {
+              e.stopPropagation()
+              setIndex((i) => (i + 1) % images.length)
+            }}
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/85 hover:bg-white flex items-center justify-center text-neutral-900 shadow-md transition-all z-20"
+          >
+            <ChevronRight size={16} />
+          </button>
+        </>
+      )}
+    </div>
+  )
+}
+
 
 export default function StackCard({ project, index, total }: StackCardProps) {
   const ref = useRef<HTMLDivElement>(null)
@@ -141,8 +195,21 @@ export default function StackCard({ project, index, total }: StackCardProps) {
                 </span>
               )}
 
-              {/* Live Demo Chip(s) */}
-              {liveUrl ? (
+              {/* Custom Links or Live Demo Chip(s) */}
+              {project.links ? (
+                project.links.map((link) => (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-signal px-4 py-2 font-mono text-xs text-ink font-medium hover:bg-signal-2 transition-colors"
+                  >
+                    <ExternalLink size={14} />
+                    {link.label}
+                  </a>
+                ))
+              ) : liveUrl ? (
                 Array.isArray(liveUrl) ? (
                   liveUrl.map((url, urlIdx) => (
                     <a
@@ -175,6 +242,19 @@ export default function StackCard({ project, index, total }: StackCardProps) {
                   Coming soon
                 </span>
               )}
+
+              {/* View Full Audit Chip */}
+              {project.auditDeckUrl && (
+                <a
+                  href={project.auditDeckUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 font-mono text-xs hover:border-signal/40 transition-colors text-muted hover:text-fg"
+                >
+                  <FileText size={14} />
+                  View Full Audit
+                </a>
+              )}
             </div>
           </div>
 
@@ -188,7 +268,9 @@ export default function StackCard({ project, index, total }: StackCardProps) {
               </div>
 
               <div className="aspect-video relative bg-paper-hi flex items-center justify-center overflow-hidden">
-                {hasVideo ? (
+                {project.slideImages && project.slideImages.length > 0 ? (
+                  <SlideCarousel images={project.slideImages} alt={project.title} />
+                ) : hasVideo ? (
                   <>
                     <video
                       ref={videoRef}

@@ -84,8 +84,8 @@ export default function Navbar() {
             { label: 'Contact', ariaLabel: 'Go to Contact section', link: '#contact' },
           ]}
           socialItems={[
-            { label: 'GitHub', link: 'https://github.com/your-username' },
-            { label: 'LinkedIn', link: 'https://linkedin.com/in/your-username' },
+            { label: 'GitHub', link: 'https://github.com/harshcode26-creator' },
+            { label: 'LinkedIn', link: 'https://www.linkedin.com/in/harshprajapati-dev23/' },
           ]}
           displaySocials={true}
           displayItemNumbering={true}

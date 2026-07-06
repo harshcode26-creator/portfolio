@@ -45,9 +45,9 @@ function Linkedin({ size = 16, className = "" }: { size?: number; className?: st
   )
 }
 
-const CONTACT_EMAIL = 'your.email@example.com'
-const GITHUB_URL = 'https://github.com/your-username'
-const LINKEDIN_URL = 'https://linkedin.com/in/your-username'
+const CONTACT_EMAIL = 'prajapatih039@gmail.com'
+const GITHUB_URL = 'https://github.com/harshcode26-creator'
+const LINKEDIN_URL = 'https://www.linkedin.com/in/harshprajapati-dev23/'
 
 export default function Contact() {
   return (

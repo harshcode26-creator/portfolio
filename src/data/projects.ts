@@ -9,14 +9,19 @@ export interface Project {
   index: string
   title: string
   role: string
+  subtitle?: string
   description: string
   stack: string[]
+  tags?: string[]
   accent: 'signal' | 'signal-2'
   media?: ProjectMedia[]
   githubUrl: string | null
   liveUrl: string | string[] | null
   videoSrc?: string
   posterImage?: string
+  slideImages?: string[]
+  auditDeckUrl?: string
+  links?: { label: string; url: string }[]
 }
 
 export const projects: Project[] = [
@@ -30,7 +35,7 @@ export const projects: Project[] = [
     stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Vite'],
     accent: 'signal',
     media: [
-      { type: 'image', src: '/projects/optivis/dashboard.png', alt: 'Optivis dashboard view' },
+      { type: 'video', src: '/projects/optivis/optivis.mp4', alt: 'Optivis view' },
     ],
     videoSrc: '/projects/optivis/optivis.mp4',
     posterImage: '/projects/optivis/dashboard.png',
@@ -55,24 +60,30 @@ export const projects: Project[] = [
     liveUrl: 'https://finnova-livid.vercel.app/',
   },
   {
-    id: 'einvite-audit',
+    id: 'einvite',
     index: '03',
     title: 'EInvite Audit & Redesign',
-    role: 'Independent Product Audit — TodoIT Services',
+    role: 'Independent Product Audit — EInvite',
+    subtitle: 'Independent Product Audit — EInvite',
     description:
-      'Self-initiated audit of a live product: found broken CTAs, unresolved template variables, duplicate analytics tags, and missing security headers. Followed it with live redesign prototypes of two pages and a full PageSpeed report, packaged into a pitch deck for the company’s CEO.',
-    stack: ['React', 'Performance Audit', 'UI Redesign'],
+      "Independent audit of EInvite's public site across 9 pages — surfaced pricing-page conversion friction, duplicate/undiscoverable articles, technical SEO gaps, and a 41s mobile load time. Shipped two live, interactive redesigns (pricing + articles) plus a full performance and SEO roadmap, packaged into a pitch deck for their CEO.",
+    stack: ['React', 'Performance Audit', 'UI Redesign', 'Technical SEO'],
+    tags: ['React', 'Performance Audit', 'UI Redesign', 'Technical SEO'],
     accent: 'signal',
-    media: [
-      { type: 'image', src: '/projects/einvite/before-after-pricing.png', alt: 'EInvite pricing page before and after redesign' },
-      { type: 'image', src: '/projects/einvite/before-after-articles.png', alt: 'EInvite articles page before and after redesign' },
+    slideImages: [
+      '/projects/einvite/einvite-slide-cover.png',
+      '/projects/einvite/einvite-slide-pricing.png',
+      '/projects/einvite/einvite-slide-articles.png',
     ],
-    videoSrc: '/projects/einvite/einvite.mp4',
-    posterImage: '/projects/einvite/before-after-pricing.png',
     githubUrl: null,
     liveUrl: [
       'https://einvite-pricing-625378471000.asia-southeast1.run.app/',
       'https://einvite-articles-resources-625378471000.asia-southeast1.run.app/',
     ],
+    links: [
+      { label: 'Pricing Redesign', url: 'https://einvite-pricing-625378471000.asia-southeast1.run.app/' },
+      { label: 'Articles Redesign', url: 'https://einvite-articles-resources-625378471000.asia-southeast1.run.app/' },
+    ],
+    auditDeckUrl: '/projects/einvite/einvite-audit.pdf',
   },
 ]
