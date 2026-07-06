@@ -310,7 +310,7 @@ function HeroMedia() {
             <span className="transition-transform duration-300 group-open:rotate-180 font-bold font-mono text-[10px]">▼</span>
           </summary>
           <div className="p-4 border-t border-line text-muted leading-relaxed font-mono whitespace-pre-line bg-paper/50">
-            {"Hello! I'm Harsh Prajapati. I'm a full-stack developer who builds MERN-stack products end-to-end, from schema modeling to shipped responsive user interfaces. I love building high-performance, real-world web applications. Thank you for checking out my portfolio!"}
+            {"Hi, I'm Harsh prajapati. I'm a Full Stack Developer passionate about building scalable web applications, solving real-world problems, and continuously learning new technologies. Welcome to my portfolio."}
           </div>
         </details>
       </div>
@@ -369,7 +369,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-10 flex items-center gap-4"
+              className="mt-8 flex items-center gap-4"
             >
               <Magnet>
                 <a
@@ -397,7 +397,7 @@ export default function Hero() {
           >
             {/* Red Background Rectangle Shape (Vivid Red Accent) */}
             <div 
-              className="absolute -right-6 md:-right-20 -bottom-6 md:-bottom-12 -top-6 md:-top-12 left-6 md:left-12 bg-hero-red rounded-[2rem] md:rounded-[4rem] -z-10 pointer-events-none opacity-95" 
+              className="absolute -right-2 md:-right-20 -bottom-6 md:-bottom-12 -top-6 md:-top-12 left-6 md:left-12 bg-hero-red rounded-[2rem] md:rounded-[4rem] -z-10 pointer-events-none opacity-95" 
             />
 
             <HeroMedia />

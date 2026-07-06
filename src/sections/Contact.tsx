@@ -51,7 +51,7 @@ const LINKEDIN_URL = 'https://www.linkedin.com/in/harshprajapati-dev23/'
 
 export default function Contact() {
   return (
-    <section id="contact" className="px-6 md:px-8 py-28 md:py-40 border-t border-line">
+    <section id="contact" className="px-6 md:px-8 py-20 md:py-28 border-t border-line">
       <div className="max-w-6xl mx-auto text-center">
         <FadeIn as="p" className="font-mono text-xs uppercase tracking-widest text-signal mb-6">
           // 04 — Contact

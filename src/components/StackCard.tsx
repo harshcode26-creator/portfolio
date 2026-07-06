@@ -123,19 +123,19 @@ export default function StackCard({ project, index, total }: StackCardProps) {
   const fallbackImgAlt = project.title + " fallback"
 
   return (
-    <div ref={ref} className="sticky top-24 h-screen flex items-center justify-center px-6 md:px-8">
+    <div ref={ref} className="md:sticky md:top-24 md:h-screen flex items-center justify-center px-6 md:px-8">
       <motion.div
         style={{ scale, top: `${index * 16}px` }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={handleTogglePlay}
-        className={`relative w-full max-w-6xl rounded-3xl border border-line bg-paper p-10 md:p-16 shadow-2xl shadow-black/50 transition-colors duration-300 cursor-pointer select-none ${
+        className={`relative w-full max-w-6xl rounded-3xl border border-line bg-paper p-6 md:p-16 shadow-2xl shadow-black/50 transition-colors duration-300 cursor-pointer select-none max-h-[90vh] md:max-h-none overflow-y-auto md:overflow-visible ${
           project.accent === 'signal'
             ? 'hover:border-signal/40'
             : 'hover:border-signal-2/40'
         }`}
       >
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <div className="grid gap-6 md:gap-10 md:grid-cols-2 md:items-center">
           <div>
             <div className="flex items-center gap-3">
               <span className="font-mono text-sm" style={{ color: accent }}>
@@ -146,10 +146,10 @@ export default function StackCard({ project, index, total }: StackCardProps) {
                 shipped
               </div>
             </div>
-            <h3 className="font-display text-4xl md:text-6xl font-medium mt-3">{project.title}</h3>
+            <h3 className="font-display text-2xl sm:text-3xl md:text-6xl font-medium mt-3">{project.title}</h3>
             <p className="text-muted font-mono text-sm mt-2">{project.role}</p>
 
-            <p className="text-fg/90 mt-6 leading-relaxed">{project.description}</p>
+            <p className="text-fg/90 mt-4 md:mt-6 leading-relaxed">{project.description}</p>
 
             {/* Tech Stack Pills */}
             <div className="mt-6 flex flex-wrap gap-2">
@@ -173,7 +173,7 @@ export default function StackCard({ project, index, total }: StackCardProps) {
             </div>
 
             {/* Project Links (GitHub and Live Demo) */}
-            <div className="mt-8 flex flex-wrap gap-3" onClick={(e) => e.stopPropagation()}>
+            <div className="mt-5 md:mt-8 flex flex-wrap gap-3" onClick={(e) => e.stopPropagation()}>
               {/* GitHub Chip */}
               {project.githubUrl ? (
                 <a

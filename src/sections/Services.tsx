@@ -9,7 +9,7 @@ const spotlightColors = [
 
 export default function Services() {
   return (
-    <section id="services" className="px-6 md:px-8 py-28 md:py-36 bg-paper/40">
+    <section id="services" className="px-6 md:px-8 py-20 md:py-28 bg-paper/40">
       <div className="max-w-6xl mx-auto">
         <FadeIn as="p" className="font-mono text-xs uppercase tracking-widest text-signal mb-6">
           // 02 — Services
