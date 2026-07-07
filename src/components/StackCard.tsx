@@ -123,7 +123,7 @@ export default function StackCard({ project, index, total }: StackCardProps) {
   const fallbackImgAlt = project.title + " fallback"
 
   return (
-    <div ref={ref} className="md:sticky md:top-24 md:h-screen flex items-center justify-center px-6 md:px-8">
+    <div ref={ref} className="sticky top-24 h-screen flex items-center justify-center px-6 md:px-8">
       <motion.div
         style={{ scale, top: `${index * 16}px` }}
         onMouseEnter={handleMouseEnter}
