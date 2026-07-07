@@ -334,7 +334,7 @@ export default function Hero() {
       {/* Main Grid Content Area */}
       <div className="flex-grow flex items-center w-full">
         <div className="max-w-6xl mx-auto w-full grid md:grid-cols-[1.3fr_1fr] gap-12 items-center px-6 md:px-8">
-          <div>
+          <div className="md:self-start md:mt-[18px]">
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
