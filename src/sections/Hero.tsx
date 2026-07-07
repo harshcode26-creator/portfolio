@@ -389,19 +389,24 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-sm mx-auto md:max-w-none"
-          >
+          <div className="relative w-full max-w-sm mx-auto md:max-w-none">
             {/* Red Background Rectangle Shape (Vivid Red Accent) */}
-            <div 
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.3, delay: 0, ease: "easeOut" }}
               className="absolute -right-2 md:-right-20 -bottom-6 md:-bottom-12 -top-6 md:-top-12 left-6 md:left-12 bg-hero-red rounded-[2rem] md:rounded-[4rem] -z-10 pointer-events-none opacity-95" 
             />
 
-            <HeroMedia />
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full"
+            >
+              <HeroMedia />
+            </motion.div>
+          </div>
         </div>
       </div>
 
