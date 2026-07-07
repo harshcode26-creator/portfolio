@@ -1,63 +1,70 @@
-# Harsh Prajapati — Portfolio
+# harsh.dev
 
-MERN-developer portfolio built with React, TypeScript, Tailwind CSS v4, and Motion (Framer Motion).
+**Full-stack developer portfolio — React · TypeScript · Tailwind CSS v4 · Motion**
 
-## Run it
+[Live Site](#) · [Report a Bug](../../issues) · [Connect on LinkedIn](#)
+
+![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?logo=tailwindcss&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-B73BFE?logo=vite&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
+<!-- Replace with an actual screenshot: docs/screenshot.png -->
+<!-- ![Portfolio preview](./docs/screenshot.png) -->
+
+</div>
+
+---
+
+## About
+
+This is my personal portfolio — built from scratch, not a template. It's meant to do three things: show what I can actually ship, explain how I think about a codebase, and be a small demonstration of frontend craft in its own right (motion, custom interactions, performance, accessibility).
+
+## Highlights
+
+- 🎬 **Video intro in the hero** — a short, click-to-play narrated intro with custom playback controls (no default browser video UI), plus a transcript for accessibility.
+- 🧱 **Scroll-driven stacking project cards** — each shipped project gets a full case-study card with a live/hover demo preview, tech stack, and links to code + live deploy.
+- 📄 **A real audit case study** — one project card documents an independent product audit I ran on a live company site (performance, SEO, conversion issues) and shipped as a redesign proposal, not just a code repo.
+- 🎨 **A deliberate, non-templated design system** — a custom red/navy palette, three-font type system (Space Grotesk / Inter / JetBrains Mono), and an animated tech-stack ticker built to reflect my actual stack, not a generic icon set.
+- 📱 **Custom animated mobile navigation** — a GSAP-powered staggered reveal menu, fully wired into the existing nav rather than bolted on as a separate widget.
+- ♿ **Built with accessibility in mind** — visible focus states, `prefers-reduced-motion` support throughout, and a captioned/transcribed video intro.
+
+## Tech stack
+
+| Layer | Tools |
+|---|---|
+| Framework | React, TypeScript, Vite |
+| Styling | Tailwind CSS v4 |
+| Animation | Motion (Framer Motion), GSAP |
+| Icons | Lucide, Simple Icons |
+
+## Getting started
 
 ```bash
+git clone https://github.com/<your-username>/<your-repo>.git
+cd <your-repo>
 npm install
-npm run dev       # local dev server
+npm run dev
+```
+
+Open `http://localhost:5173` to view it locally.
+
+```bash
 npm run build     # production build -> dist/
 npm run preview   # preview the production build
 ```
 
-## Adding screenshots and videos
+## Deployment
 
-Drop files into `public/projects/<project>/` — Vite serves everything in `public/` at the root, no import needed. The project cards already point at these exact paths, so matching the filename is all it takes:
+Deployed on [Cloudflare Pages](https://pages.cloudflare.com/) — connect the repo, build command `npm run build`, output directory `dist`.
 
-```
-public/projects/optivis/dashboard.png
-public/projects/optivis/insights.png
-public/projects/optivis/demo.mp4
-public/projects/finnova/upload.png
-public/projects/finnova/analysis.png
-public/projects/einvite/before-after-pricing.png
-public/projects/einvite/before-after-articles.png
-```
+## Connect
 
-Until a file exists at that path, the card shows a placeholder with the expected filename instead of a broken image — so you'll always know exactly what's missing. Videos autoplay muted and loop, so short screen recordings (5–15s) work best.
+- 📧 Email: your.email@example.com
+- 💼 LinkedIn: [linkedin.com/in/yourhandle](#)
+- 🐙 GitHub: [@yourhandle](#)
 
-To add more images per project, or rename files, edit the `media` array for that project in `src/data/projects.ts`:
+## License
 
-```ts
-media: [
-  { type: 'image', src: '/projects/optivis/dashboard.png', alt: 'Optivis dashboard view' },
-  { type: 'video', src: '/projects/optivis/demo.mp4', alt: 'Optivis product walkthrough' },
-]
-```
-
-If a project has more than one media item, small dots appear under the frame to switch between them.
-
-## Before you deploy
-
-A few things are placeholders — swap these in `src/sections/Contact.tsx` and `src/data/projects.ts`:
-
-- `CONTACT_EMAIL`, `GITHUB_URL`, `LINKEDIN_URL` in `Contact.tsx` — currently placeholder values.
-- Project descriptions in `src/data/projects.ts` are drawn from what you've told me about Optivis, Finnova, and the EInvite audit — check the wording and swap in live links once you have them.
-- Timeline dates in `src/sections/About.tsx` are approximate — adjust to your actual dates.
-
-## Structure
-
-```
-src/
-  components/   FadeIn, Magnet (magnetic hover), Marquee, AnimatedText, StackCard, Navbar
-  sections/     Hero, About, Services, Projects, Contact
-  data/         projects.ts, services.ts — edit content here without touching components
-```
-
-## Design notes
-
-- Palette pulls from your Optivis brand colors (`#185FA5` / `#534AB7`) so the portfolio and product share a visual thread.
-- Dark "editor" aesthetic with Space Grotesk (display), Inter (body), JetBrains Mono (labels/eyebrows) — leans into the developer identity rather than a generic template look.
-- Motion: staggered word reveals, magnetic CTA buttons, infinite tech-stack marquee, and scroll-linked sticky stacking cards for the project section.
-- Respects `prefers-reduced-motion`.
+MIT — feel free to use this as a reference for your own portfolio, but please don't copy the content/case studies wholesale.
